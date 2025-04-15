@@ -20,4 +20,10 @@ CREATE TABLE perfil (
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
+CREATE TABLE cliente (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45) NOT NULL,
+    descricao TEXT NOT NULL
+);
+
 INSERT INTO usuarios(nome, email, senha) VALUE ( "Teste", "teste@gmail.com", 1234567);

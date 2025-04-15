@@ -13,7 +13,7 @@ const proconnect = knex({
     host: "127.0.0.1",
     port: 3306,
     user: "root",
-    password: "root",
+    password: "senacrs",
     database: "proconnect",
   },
 });
@@ -43,6 +43,27 @@ app.post('/registro', async (req,res) => {
   const { nome, email, senha } = req.body;
   const nUsuario = await proconnect("usuarios").insert({ nome, email, senha })
   res.json(nUsuario);
+})
+
+app.post('/login', async (req,res) => {
+  const { email, senha } = req.body;
+  const usuario = await proconnect("usuarios").where({ email }).first()
+
+  if(!usuario) {
+    return res.status(401).json({ message: "Usuário ou senha inválidos" });
+  }
+
+  if(senha !== usuario.senha) {
+    return res.status(401).json({ message: "Usuário ou senha inválidos" });
+  }
+
+  res.json(usuario);
+})
+
+app.post('/cliente', async (req, res) => {
+  const {nome, descricao} = req.body
+  const cliente = await proconnect("cliente").insert({ nome, descricao })
+  res.status(200).json({ message: "Ideia salva com sucesso!" });
 })
 
 app.listen(port, () => {
