@@ -66,6 +66,11 @@ app.post('/cliente', async (req, res) => {
   res.status(200).json({ message: "Ideia salva com sucesso!" });
 })
 
+app.get('/perfis', async (req, res) => {
+  const perfil = await proconnect.select("*").from("perfil");
+  res.send(perfil);
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
