@@ -71,6 +71,12 @@ app.get('/perfis', async (req, res) => {
   res.send(perfil);
 })
 
+app.get("/perfis/:id", async (req, res) => {
+  const { id } = req.params;
+  const perfil = await proconnect.select("*").from("perfil").where({ id }).first();
+  res.send(perfil);
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
